@@ -1,18 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { withOrientation } from 'react-navigation';
 
 
 export default function Show() {
+  //[nome da constante, função] 
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  //Função que pega os valores setados e passa para o firebase
+  function pushFire(){
+
+  }
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="Your name! "/>
-      <TextInput style={styles.textInput} placeholder="Your age! "/>
+      <TextInput style={styles.textInput}
+        onChargeText={name => setName(name)} value={name}
+        placeholder="Your name! "/>
+          
+      <TextInput style={styles.textInput}
+        onChargeText={age => setAge(age)} value={age}
+        placeholder="Your age! "/>
       
       <TouchableOpacity style={styles.btnEnviar}>
           <Text style={styles.text}>Enviar</Text>
       </TouchableOpacity>
-      
+      <Text style={{color: 'white'}}>{name}{age}</Text>
+      <Text style={{color: 'white'}}>{name}{age}</Text>
     </View>
   );
 }
