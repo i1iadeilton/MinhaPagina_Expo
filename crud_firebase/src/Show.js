@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { withOrientation } from 'react-navigation';
+import firebase from '../Fire'
 
 
 export default function Show() {
@@ -11,24 +10,33 @@ export default function Show() {
 
   //Função que pega os valores setados e passa para o firebase
   function pushFire(){
-
+    try {
+      firebase.database.ref('/crud').push({
+        name: name,
+        age: age
+      })
+    } catch (error) {
+      alert(error);
+    }
+    finally{
+      setName('');
+      setAge('')
+    }
   }
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput}
-        onChargeText={name => setName(name)} value={name}
-        placeholder="Your name! "/>
+      <TextInput style={styles.textInput} onChangeText={name => setName(name)} value={name}
+      placeholder="your name!" />
           
-      <TextInput style={styles.textInput}
-        onChargeText={age => setAge(age)} value={age}
-        placeholder="Your age! "/>
+      <TextInput style={styles.textInput} onChangeText={age => setAge(age)} value={age}
+       placeholder="Your age!" />
       
-      <TouchableOpacity style={styles.btnEnviar}>
+      <TouchableOpacity style={styles.btnEnviar} onPress={pushFire}>
           <Text style={styles.text}>Enviar</Text>
       </TouchableOpacity>
-      <Text style={{color: 'white'}}>{name}{age}</Text>
-      <Text style={{color: 'white'}}>{name}{age}</Text>
+      <Text style={{color: 'white'}}>{name}</Text>
+      <Text style={{color: 'white'}}>{age}</Text>
     </View>
   );
 }

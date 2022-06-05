@@ -1,5 +1,5 @@
 //importando as configurações minimas
-import firebase from 'firebase';
+import firebase from './node_modules/firebase';
 
 //configurações para acessar o firebase
 const firebaseConfig = {
